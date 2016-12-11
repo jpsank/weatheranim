@@ -2,7 +2,15 @@ import urllib.request
 import re
 import time,math,random
 
+
 def scrape(source,keystr,endchar):
+    '''
+    scrape function
+    :param source:
+    :param keystr:
+    :param endchar:
+    :return:
+    '''
     results = []
     for m in re.finditer(keystr,source):
         start = m.end()
