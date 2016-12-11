@@ -1,2 +1,4 @@
 # weatheranim
-Weather Animations
+
+to run this program use
+	python main.py
