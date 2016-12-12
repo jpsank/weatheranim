@@ -4,13 +4,6 @@ import time,math,random
 
 
 def scrape(source,keystr,endchar):
-    '''
-    scrape function
-    :param source:
-    :param keystr:
-    :param endchar:
-    :return:
-    '''
     results = []
     for m in re.finditer(keystr,source):
         start = m.end()
@@ -36,10 +29,13 @@ def scrapeBackwards(source,keystr,startchar):
             results.append(source[start:end])
     return(results)
 
+location = []
 def searchLocation():
+    global location
+    location = []
     source = (urllib.request.urlopen("http://www.accuweather.com/en/browse-locations").read()).decode()
     choices = scrapeBackwards(source,'''</em></a></h6>''','>')
-    for i in choices[:len(choices)-2]:
+    for i in choices[:len(choices)-1]:
         print(i,end=', ')
     print()
     loc = input("Choice: ")
@@ -50,10 +46,11 @@ def searchLocation():
         locURL = urls[len(urls)-1]
         source = (urllib.request.urlopen(locURL).read()).decode()
         choices = scrapeBackwards(source,'''</em></a></h6>''','>')
-        for i in choices[:len(choices)-2]:
+        for i in choices[:len(choices)-1]:
             print(i,end=', ')
         print()
         loc = input("Choice: ")
+        location.append(loc)
 
     locURL = scrapeBackwards(source.lower(),'''"><em>%s</em>'''%loc.lower(),'"')[0]
     source = (urllib.request.urlopen(locURL).read()).decode()
@@ -78,25 +75,31 @@ def searchLocation():
     """
 
 def weatherData():
-    if input("Custom location? y/n ").startswith('y'):
+    global location
+    if input("Browse for location? y/n ").startswith('y'):
         url = "http://www.accuweather.com/en/n/n/n/current-weather/%s"%searchLocation()
         source = (urllib.request.urlopen(url).read()).decode()
-        print(url)
+        #print(url)
     else:
-        source = (urllib.request.urlopen("http://www.accuweather.com/en/n/n/n/current-weather/326857").read()).decode()
+        id = input('Enter ID: ')
+        source = (urllib.request.urlopen("http://www.accuweather.com/en/n/n/n/current-weather/"+id).read()).decode()
+        location = [id]
     #else:
     #    source = (urllib.request.urlopen("http://www.accuweather.com/en/n/n/n/current-weather/%s"%input("ID: ")).read()).decode()
     data = {"Temperature":0,"Conditions":''}
     #print(source)
+    for i in location:
+        print(i,end=' > ')
+    print('current weather')
 
     temp = scrape(source,'''<span class="large-temp">''','&')
-    print(temp)
+    #print(temp)
     data["Temperature"] = temp[len(temp)-1]
     cond = scrape(source,'''<span class="cond">''','<')
-    print(cond)
+    #print(cond)
     data["Conditions"] = cond[len(cond)-1]
     wind = scrape(source,'''<li class="wind"><strong>''',' ')
-    print(wind)
+    #print(wind)
     data["Wind"] = wind[len(wind)-1]
 
     return(data)
@@ -174,8 +177,8 @@ def getConditions():
     #    conditions['wind'] = conditions['rain']/4
 
 
-    print()
-    print(conditions)
+    #print()
+    #print(conditions)
 
 def animate(cloud,rain,storm,sunny,wind,fog,snow):
     global conditions,data,play
