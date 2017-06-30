@@ -306,12 +306,21 @@ screen = turtle.Screen()
 screen.colormode(255)
 
 
+def answer(question,acceptable_answers,tryagain="Unacceptable answer, please try again "):
+	a = input(question)
+	while a not in acceptable_answers:
+		a = input(tryagain)
+	return a
+
 while True:
-    if input('Custom location? y/n ').startswith('y'):
-        if input('Name (n) or longitude and latitude (l)? ').startswith('n'):
+    if answer('Use current location (c) or manually enter location (m) ',('c','m')) == 'm':
+        if answer('Name (n) or longitude and latitude (l)? ',('n','l')) == 'n':
             weather_data = weather(input('Enter location: '))
         else:
-            weather_data = weather_geoloc(input('Enter latitude longitude separated by a space: ').split())
+            ll = input('Enter latitude longitude separated by a space: ').split()
+            while len(ll) != 2:
+                ll = input('Invalid coordinates, please try again: ').split()
+            weather_data = weather_geoloc(ll)
     else:
         print('Using current location')
         weather_data = weather_geoloc(coordinates())
