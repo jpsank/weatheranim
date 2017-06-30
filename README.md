@@ -8,7 +8,7 @@ to run this program use
 
 	python main.py
 
-You can either use your current location or manually enter a location with coordinates or by entering the address, city, etc.
+You can either use your current location or manually enter a location with coordinates or by entering the address, city, or any other location type.
 
 	Use current location (c) or manually enter location (m) m
 	Name (n) or longitude and latitude (l)? n
