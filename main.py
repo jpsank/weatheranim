@@ -318,7 +318,7 @@ while True:
         if detecto[0].isdigit() and detecto[1].isdigit():
             weather_data = weather_geoloc(detecto)
         else:
-             weather_data = weather(detecto)
+            weather_data = weather(detecto)
     else:
         print('Using current location')
         weather_data = weather_geoloc(coordinates())
