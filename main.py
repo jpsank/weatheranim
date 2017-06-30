@@ -326,7 +326,7 @@ while True:
         weather_data = weather_geoloc(coordinates())
     data = {'Conditions':' \n '.join([i['description'] for i in weather_data['weather']]),
             'Wind':weather_data['wind']['speed'],
-            'Temperature':float(weather_data['main']['temp'])*1.8-459.67}
+            'Temperature':round(float(weather_data['main']['temp'])*1.8-459.67, 1)}
     print(data)
 
     # conditions = {'cloudy': 0, 'rain': 0, 'storm': 0, 'sunny': 0, 'wind': 100, 'snow': 0, 'fog': 0}
