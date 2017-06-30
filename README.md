@@ -11,6 +11,6 @@ to run this program use
 You can either use your current location or manually enter a location with coordinates, address, or city.
 
 	Use current location (c) or manually enter location (m) m
-	Name (n) or longitude and latitude (l)? n
-	Enter location: 1600 Pennsylvania Avenue NW Washington, DC 20500
+	Enter coordinates, address, or city. 1600 pennsylvania ave NW Washington, DC 20500
+
 
