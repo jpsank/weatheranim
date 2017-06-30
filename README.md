@@ -6,7 +6,7 @@ Pulls weather from OpenWeatherMap and puts it in a turtle animation!
 
 to run this program use
 
-	python main.
+	python main.py
 
 You can either use your current location or manually enter a location with coordinates or by entering the address, city, etc.
 
