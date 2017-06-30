@@ -314,11 +314,18 @@ def answer(question,acceptable_answers,tryagain="Unacceptable answer, please try
 
 while True:
     if answer('Use current location (c) or manually enter location (m) ',('c','m')) == 'm':
-        detecto=input('Enter coordinates, address, or city.').split()
+        detecto=input('Enter coordinates, address, or city. ').split()
         if detecto[0].isdigit() and detecto[1].isdigit():
             weather_data = weather_geoloc(detecto)
         else:
             weather_data = weather(detecto)
+        while 'weather' not in weather_data:
+            print("Invalid Location. Please try again. ")
+            detecto=input('Enter coordinates, address, or city. ').split()
+            if detecto[0].isdigit() and detecto[1].isdigit():
+                weather_data = weather_geoloc(detecto)
+            else:
+                weather_data = weather(detecto)
     else:
         print('Using current location')
         weather_data = weather_geoloc(coordinates())
