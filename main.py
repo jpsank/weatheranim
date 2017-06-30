@@ -119,7 +119,6 @@ def animate(conds):
         else:
             dif2 = 255
         screen.bgcolor(dif1, dif1, dif2)
-    # print(screen.bgcolor())
 
     posX = []
     posY = []
@@ -226,14 +225,15 @@ def animate(conds):
                 t.color(color[a] + (sunny * 4), color[a] + (sunny * 4), color[a])
             else:
                 t.color(255, 255, 255)
+            r = lambda: int((10-(10/wind)) * 10) if wind >= 1 else 0
             if random.randint(0, 1) == 0:
-                posX[a] += (random.randint(0, int((10-(10/wind)) * 10)) / 10)
-                posY[a] += (random.randint(0, int((10-(10/wind)) * 10)) / 20)
-                size[a] += (random.randint(0, 2) / 2)
+                posX[a] += random.random()*r() / 10
+                posY[a] += random.random()*r() / 20
+                size[a] += random.random()
             else:
-                posX[a] -= (random.randint(0, int((10-(10/wind)) * 10)) / 10)
-                posY[a] -= (random.randint(0, int((10-(10/wind)) * 10)) / 20)
-                size[a] -= (random.randint(0, 2) / 2)
+                posX[a] -= random.random()*r() / 10
+                posY[a] -= random.random()*r() / 20
+                size[a] -= random.random()
             t.up()
             t.goto(posX[a] + (a / 2), posY[a])
             t.down()
@@ -329,7 +329,8 @@ while True:
     else:
         print('Using current location')
         weather_data = weather_geoloc(coordinates())
-    data = {'Conditions':' \n '.join([i['description'] for i in weather_data['weather']]),
+    data = {'Name':weather_data['name'],
+            'Conditions':' \n '.join([i['description'] for i in weather_data['weather']]),
             'Wind':weather_data['wind']['speed'],
             'Temperature':round(float(weather_data['main']['temp'])*1.8-459.67, 1)}
     print(data)
