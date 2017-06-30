@@ -1,6 +1,6 @@
 # weatheranim
 
-Pulls weather from AccuWeather and puts it in a turtle animation!
+Pulls weather from OpenWeatherMap and puts it in a turtle animation!
 
 ## Usage
 
